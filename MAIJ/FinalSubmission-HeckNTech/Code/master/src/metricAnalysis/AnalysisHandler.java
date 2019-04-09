@@ -47,6 +47,7 @@ public class AnalysisHandler {
 		aMap.put(new NOAMMetric().getIdentifier(), NOAMMetric.class);
 		aMap.put(new FanOutMetric().getIdentifier(), FanOutMetric.class);
 		aMap.put(new Base().getIdentifier(), Base.class);
+		aMap.put(new CCDAMetric().getIdentifier(), CCDAMetric.class);
 		
 		//Register new metrics here in the same format as Above
 	
