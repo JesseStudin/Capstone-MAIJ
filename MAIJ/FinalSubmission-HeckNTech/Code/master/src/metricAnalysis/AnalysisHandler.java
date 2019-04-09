@@ -25,6 +25,7 @@ import metricAnalysis.Metrics.MetricLevel;
 import metricAnalysis.Metrics.NOAMMetric;
 import metricAnalysis.Metrics.NOPAMetric;
 import metricAnalysis.Metrics.NOSMetric;
+import metricAnalysis.Metrics.Base;
 
 /**
  * Access point for everything related to choosing source input, choosing
@@ -45,6 +46,7 @@ public class AnalysisHandler {
 		aMap.put(new NOSMetric().getIdentifier(), NOSMetric.class);
 		aMap.put(new NOAMMetric().getIdentifier(), NOAMMetric.class);
 		aMap.put(new FanOutMetric().getIdentifier(), FanOutMetric.class);
+		aMap.put(new Base().getIdentifier(), Base.class);
 		
 		//Register new metrics here in the same format as Above
 	
