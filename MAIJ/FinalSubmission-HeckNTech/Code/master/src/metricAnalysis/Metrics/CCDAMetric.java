@@ -35,7 +35,7 @@ public class CCDAMetric extends Metric {
 		double classifiedVal = 0.0;
 		
 		for(FieldDeclaration x : n.getFields()) {
-			if(x.toString().contains("/*secrecy*/") && x.toString().contains("static") && x.toString().contains("public")) {
+			if(x.toString().contains("/*underline*/") && x.toString().contains("static") && x.toString().contains("public")) {
 				classifiedVal++;
 			}
 		}
