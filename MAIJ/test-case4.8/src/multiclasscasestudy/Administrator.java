@@ -1,8 +1,14 @@
 package multiclasscasestudy;
 
-public class Administrator {
+public class Administrator extends Staff{
 
-	private String jobTitle;
+	private Administrator(Name name, String jobTitle) {
+		super(name, jobTitle);
+		
+	}
+	
+
+	//private String jobTitle;
 	
 	public void SetJobTitle(String jobTitle) {
 		
