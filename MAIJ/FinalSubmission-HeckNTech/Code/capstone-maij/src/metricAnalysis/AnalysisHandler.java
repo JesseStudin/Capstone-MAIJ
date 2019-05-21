@@ -57,6 +57,7 @@ public class AnalysisHandler {
 		aMap.put(new CCDAMetric().getIdentifier(), CCDAMetric.class);
 		aMap.put(new CMWMetric().getIdentifier(), CMWMetric.class);
 		aMap.put(new COAMetric().getIdentifier(), COAMetric.class);
+		aMap.put(new CDPMetric().getIdentifier(), CDPMetric.class);
 		//Register new metrics here in the same format as Above
 	
 		registeredMetrics = Collections.unmodifiableMap(aMap);

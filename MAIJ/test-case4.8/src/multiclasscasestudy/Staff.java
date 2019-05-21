@@ -1,7 +1,6 @@
 package multiclasscasestudy;
 
-//critical
-
+/*critical*/
 public class Staff {
 
 	protected Name name;
