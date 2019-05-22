@@ -39,15 +39,10 @@ public class CMWMetric extends Metric {
 		double value = 0.0;
 		for(FieldDeclaration x : n.getFields()) {
 			for(MethodDeclaration y : n.getMethods()) {
-				System.out.println("x string" + x.toString());
-				if(x.toString().contains("/*secrecy*/")) {
-					System.out.println("entered loop");
-					String attr = x.getVariables().toString();
-					attr = attr.replaceAll("\\[", "").replaceAll("\\]", "");
-					if(y.toString().contains(attr)) {
-						System.out.println("entered if loop");
-						value++;
-					}
+				//if(x.toString().contains("/*secrecy*/")) {
+				if(x.isPublic() == true) {
+					String attr = x.getVariables().get(0).getName().toString();
+					if(y.toString().contains(attr)) value++;
 				}
 			}
 		}

@@ -25,12 +25,14 @@ import metricAnalysis.Metrics.MetricLevel;
 import metricAnalysis.Metrics.NOAMMetric;
 import metricAnalysis.Metrics.NOPAMetric;
 import metricAnalysis.Metrics.NOSMetric;
-import metricAnalysis.Metrics.CIDAMetric;
-import metricAnalysis.Metrics.Checker;
 import metricAnalysis.Metrics.CAIWMetric;
 import metricAnalysis.Metrics.CCDAMetric;
+import metricAnalysis.Metrics.Checker;
+import metricAnalysis.Metrics.CIDAMetric;
 import metricAnalysis.Metrics.CMWMetric;
 import metricAnalysis.Metrics.COAMetric;
+import metricAnalysis.Metrics.UACAMetric;
+import metricAnalysis.Metrics.UCAMMetric;
 
 /**
  * Access point for everything related to choosing source input, choosing
@@ -51,13 +53,14 @@ public class AnalysisHandler {
 		aMap.put(new NOSMetric().getIdentifier(), NOSMetric.class);
 		aMap.put(new NOAMMetric().getIdentifier(), NOAMMetric.class);
 		aMap.put(new FanOutMetric().getIdentifier(), FanOutMetric.class);
-		aMap.put(new CIDAMetric().getIdentifier(), CIDAMetric.class);
-		aMap.put(new Checker().getIdentifier(), Checker.class);
 		aMap.put(new CAIWMetric().getIdentifier(), CAIWMetric.class);
 		aMap.put(new CCDAMetric().getIdentifier(), CCDAMetric.class);
+		aMap.put(new Checker().getIdentifier(), Checker.class);
+		aMap.put(new CIDAMetric().getIdentifier(), CIDAMetric.class);
 		aMap.put(new CMWMetric().getIdentifier(), CMWMetric.class);
 		aMap.put(new COAMetric().getIdentifier(), COAMetric.class);
-		aMap.put(new CDPMetric().getIdentifier(), CDPMetric.class);
+		aMap.put(new UACAMetric().getIdentifier(), UACAMetric.class);
+		aMap.put(new UCAMMetric().getIdentifier(), UCAMMetric.class);
 		//Register new metrics here in the same format as Above
 	
 		registeredMetrics = Collections.unmodifiableMap(aMap);

@@ -29,12 +29,7 @@ public class CIDAMetric extends Metric {
 	private double CAVal(TypeDeclaration<?> n) {
 		double classifiedVal = 0.0;
 		//checks if the current field contains the secrecy comment, if so CA is icreased by one
-		for(FieldDeclaration x : n.getFields()) {
-			if(x.toString().contains("/*secrecy*/")) {
-				//print ln to show the CA value found (proof it was secrecy)
-				classifiedVal++;
-			}		
-		}//end for-each
+		for(FieldDeclaration x : n.getFields()) if(x.isAnnotationPresent("secrecy")) classifiedVal++; //end for-if loop
 		return classifiedVal;
 	}//end CAVal function
 	
@@ -45,25 +40,17 @@ public class CIDAMetric extends Metric {
 	private double NCIAVal(TypeDeclaration<?> n) {
 		double classifiedVal = 0.0;
 		//checks whether the current field has the secrecy comment and is set to public, if so, NCIA is increased by one.
-		for(FieldDeclaration x : n.getFields()) {
-			if(x.toString().contains("/*secrecy*/") && x.toString().contains("public")) {
-				//print ln to show what the NCIA String was (proof it was secrecy and public)
-				System.out.println("Found a NCIA: " + x.toString() + "\n"); //delete later
-				classifiedVal++;
-			}
-		}//end for-each
+		for(FieldDeclaration x : n.getFields()) if(x.isAnnotationPresent("secrecy") && x.isPublic()) classifiedVal++;
 		return classifiedVal;
 	}//end NCIAVal function
 	public void run(ClassAST clasAst) {
 		//if it exists
 		if(this.alreadyDone(clasAst)) return;
-		
-		System.out.println("Current path: " + clasAst.getNode().findCompilationUnit().get().getStorage().get().getPath());
 		TypeDeclaration<?> n = clasAst.getNode();
-		//get the values for CA and NCIA using their respective functions
+		//CA and NCIA Results
 		double CA = CAVal(n);
 		double NCIA = NCIAVal(n);
-		//find the result via NCIA over CA
+		//end results
 		DecimalFormat df = new DecimalFormat("####0.00");
 		double resultVal = Double.valueOf(df.format(8.0 / 12.0));
 		//Store the result within the MetricResult class ***Redefine this comment later

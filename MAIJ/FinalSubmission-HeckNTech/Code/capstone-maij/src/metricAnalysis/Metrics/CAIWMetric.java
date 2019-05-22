@@ -28,12 +28,10 @@ public class CAIWMetric extends Metric {
 		double classifiedVal = 0.0;
 		for(FieldDeclaration x : n.getFields()) {
 			for(MethodDeclaration y : n.getMethods()) {
-				if(x.toString().contains("/*secrecy*/")) {
-					String tempHold = x.getVariables().toString();
-					String varName = tempHold.replaceAll("\\[", "").replaceAll("\\]", "");
-					if(y.toString().contains(varName)) {
-						classifiedVal++;
-					}
+				if(x.isAnnotationPresent("secrecy")) {
+					String varName = x.getVariables().get(0).getName().toString();
+					System.out.println(varName);
+					if(y.toString().contains(varName)) classifiedVal++;
 				}
 			}
 		}
@@ -46,11 +44,8 @@ public class CAIWMetric extends Metric {
 		double classifiedVal = 0.0;
 		for(FieldDeclaration x : n.getFields()) {
 			for(MethodDeclaration i : n.getMethods()){
-				String tempHold = x.getVariables().toString();
-				String varName = tempHold.replaceAll("\\[", "").replaceAll("\\]", "");
-				if(i.toString().contains(varName)) {
-					classifiedVal++;
-				}
+				String varName = x.getVariables().get(0).getName().toString();
+				if(i.toString().contains(varName)) classifiedVal++;
 			}
 		}
 		return classifiedVal;

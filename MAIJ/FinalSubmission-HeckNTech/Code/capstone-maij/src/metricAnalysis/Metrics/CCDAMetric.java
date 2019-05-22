@@ -25,23 +25,13 @@ public class CCDAMetric extends Metric {
 	
 	private double CAVal(TypeDeclaration<?> n) {
 		double classifiedVal = 0.0;
-		
-		for(FieldDeclaration x : n.getFields()) {
-			if(x.toString().contains("/*secrecy*/")) {
-				classifiedVal++;
-			}		
-		}
+		for(FieldDeclaration x : n.getFields()) if(x.isAnnotationPresent("underline")) classifiedVal++;
 		return classifiedVal;
 	}
 	
 	private double NCCAVal(TypeDeclaration<?> n) {
 		double classifiedVal = 0.0;
-		
-		for(FieldDeclaration x : n.getFields()) {
-			if(x.toString().contains("/*underline*/") && x.toString().contains("static") && x.toString().contains("public")) {
-				classifiedVal++;
-			}
-		}
+		for(FieldDeclaration x : n.getFields()) if(x.isAnnotationPresent("underline") && x.isStatic() && x.isPublic()) classifiedVal++;
 		return classifiedVal;
 	}
 

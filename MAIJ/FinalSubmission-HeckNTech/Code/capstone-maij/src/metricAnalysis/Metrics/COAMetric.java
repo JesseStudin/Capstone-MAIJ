@@ -57,13 +57,9 @@ public class COAMetric extends Metric {
 		ArrayList<String> ncMethods = new ArrayList<String>();
 		for(FieldDeclaration x : n.getFields()) {
 			for(MethodDeclaration y : n.getMethods()) {
-				if(x.toString().contains("/*secrecy*/") && y.toString().contains("public")) {
-					String attr = x.getVariables().toString();
-					attr = attr.replaceAll("\\[", "").replaceAll("\\]", "");
-					if(y.toString().contains(attr) && y.toString().contains("public")) {
-						ncMethods.add(y.toString());
-						value++;
-					}	
+				if(x.isAnnotationPresent("secrecy") && y.isPublic()) {
+					String attr = x.getVariables().get(0).getName().toString();
+					if(y.toString().contains(attr) && y.isPublic()) value++;
 				}
 			}
 		}

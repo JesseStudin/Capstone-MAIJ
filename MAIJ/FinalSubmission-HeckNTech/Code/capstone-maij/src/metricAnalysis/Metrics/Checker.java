@@ -27,58 +27,25 @@ public class Checker extends Metric {
 		for(FieldDeclaration i : n.getFields()) {
 			for(MethodDeclaration x : n.getMethods()) {
 				if(i.toString().contains("/*secrecy*/")){
-					String tempHold = i.getVariables().toString();
-					tempHold = tempHold.replaceAll("\\[", "").replaceAll("\\]", "");
-					if(x.toString().contains("this." + tempHold)) {
-						classifiedVal++;
-					}
+					String tempHold = i.getVariables().get(0).getName().toString();
+					if(x.toString().contains(tempHold)) classifiedVal++;
 				}
 			}
-		}
-
-		
+		}//end forloops
 		return classifiedVal;
 	}//end CAVal function
 	
+	
+	//work on this one??
 	//find methods that do not interact with classified attiributes
 	private double NCMethod(TypeDeclaration<?> n) {
 		double classifiedVal = 0;
 		
-		//check each method, if count == 0, increase classified val?
-		
-		//sort through, if method contains /*secrecy*/ dont increase, else increase
-//		for(FieldDeclaration i : n.getFields()) {
-//			int checkContains = 0;
-//			for(MethodDeclaration x : n.getMethods()) {
-//				if(i.toString().contains("/*secrecy*/")) {
-//					String tempHold = i.getVariables().toString();
-//					tempHold = tempHold.replaceAll("\\[", "").replaceAll("\\]", "");
-//					if(x.toString().contains("this." + tempHold)) {
-//						checkContains++;
-//					}
-//				}
-//				System.out.println("inside for: " + checkContains);
-//			}
-//			System.out.println("Outside For: " + checkContains);
-//			if(checkContains == 0) {
-//				classifiedVal++;
-//			}
-//		}
-		//check for methods then fields??
 		//if contains this.+hold && public --> methodheader
 		for(MethodDeclaration x : n.getMethods()) {
 			for(FieldDeclaration i : n.getFields()) {
-				if(i.toString().contains("/*secrecy*/")) {
-					String tempHold = i.getVariables().toString();
-					tempHold = tempHold.replaceAll("\\[", "").replaceAll("\\]", "");
-					String modHold = x.getModifiers().toString();
-					modHold = modHold.replaceAll("\\[", "").replaceAll("\\]", "");
-					System.out.println(modHold.contentEquals("PUBLIC"));
-					System.out.println("Modifier: " + x.getModifiers().toString());
-					if(modHold == "[PUBLIC]") {
-						System.out.println("ENTERED");
-						classifiedVal++;
-					}
+				if(i.isAnnotationPresent("secrecy")) {
+					if(x.isPublic()) classifiedVal++;
 				}
 			}
 			System.out.println("Classified Val is: " + classifiedVal);
