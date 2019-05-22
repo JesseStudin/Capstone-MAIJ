@@ -1,11 +1,11 @@
 package multiclasscasestudy;
 
-/*critical*/
+@critical
 public class Staff {
 
 	protected Name name;
 	
-	/*secrecy*/
+	@secrecy
 	protected String jobTitle;
 	
 	public Staff(Name name, String jobTitle) {

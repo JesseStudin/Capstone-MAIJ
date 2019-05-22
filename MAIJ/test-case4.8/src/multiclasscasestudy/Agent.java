@@ -1,13 +1,13 @@
 package multiclasscasestudy;
 
-/*critical*/
+@critical
 public class Agent extends Staff{
 
 	public Agent(Name name, String jobTitle) {
 		super(name, jobTitle);
 	}
 
-	/*secrecy*/
+	@secrecy
 	private Clearance clearance;
 	
 	public void SetClearance(Clearance clearance) {

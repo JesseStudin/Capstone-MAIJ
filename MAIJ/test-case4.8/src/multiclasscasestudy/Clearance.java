@@ -1,12 +1,12 @@
 package multiclasscasestudy;
 
-/*critical*/
+@critical
 public class Clearance {
 
-	/*secrecy*/
+	@secrecy
 	private String level;
 	
-	/*secrecy*/
+	@secrecy
 	private Integer number;
 	
 	public void SetLevel(String level) {
