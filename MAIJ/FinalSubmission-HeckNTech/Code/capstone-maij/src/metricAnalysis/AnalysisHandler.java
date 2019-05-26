@@ -1,6 +1,3 @@
-/**
- * 
- */
 package metricAnalysis;
 
 import java.util.ArrayList;
@@ -15,24 +12,7 @@ import astManager.ClassAST;
 import astManager.MethodAST;
 import astManager.PackageAST;
 import astManager.ProjectAST;
-import metricAnalysis.Metrics.ATFDMetric;
-import metricAnalysis.Metrics.CycloMetric;
-import metricAnalysis.Metrics.FanOutMetric;
-import metricAnalysis.Metrics.LOCMetric;
-import metricAnalysis.Metrics.MaxNestingMetric;
-import metricAnalysis.Metrics.Metric;
-import metricAnalysis.Metrics.MetricLevel;
-import metricAnalysis.Metrics.NOAMMetric;
-import metricAnalysis.Metrics.NOPAMetric;
-import metricAnalysis.Metrics.NOSMetric;
-import metricAnalysis.Metrics.CAIWMetric;
-import metricAnalysis.Metrics.CCDAMetric;
-import metricAnalysis.Metrics.Checker;
-import metricAnalysis.Metrics.CIDAMetric;
-import metricAnalysis.Metrics.CMWMetric;
-import metricAnalysis.Metrics.COAMetric;
-import metricAnalysis.Metrics.UACAMetric;
-import metricAnalysis.Metrics.UCAMMetric;
+import metricAnalysis.Metrics.*;
 
 /**
  * Access point for everything related to choosing source input, choosing
@@ -63,6 +43,7 @@ public class AnalysisHandler {
 		aMap.put(new UCAMMetric().getIdentifier(), UCAMMetric.class);
 		aMap.put(new CSPMetric().getIdentifier(), CSPMetric.class);
 		aMap.put(new CDPMetric().getIdentifier(), CDPMetric.class);
+		aMap.put(new CAIMetric().getIdentifier(), CAIMetric.class);
 		//Register new metrics here in the same format as Above
 	
 		registeredMetrics = Collections.unmodifiableMap(aMap);
