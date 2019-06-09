@@ -29,20 +29,20 @@ public class COAMetric extends Metric {
 	private double CMVal(TypeDeclaration<?> n) {
 		
 		double value = 0.0;
-		
-		for(FieldDeclaration x : n.getFields()) {
-			for(MethodDeclaration y : n.getMethods()) {
-				System.out.println(x.toString());
-				if(x.toString().contains("/*secrecy*/")) {
-					String attr = x.getVariables().toString();
-					attr = attr.replaceAll("\\[", "").replaceAll("\\]", "");
-					if(y.toString().contains(attr)) {
-						value++;
+		String lastUsed = "";
+		for(MethodDeclaration  y : n.getMethods()) {
+			for(FieldDeclaration x : n.getFields()) {
+				if(!lastUsed.contentEquals(y.toString())) {
+					if(x.isAnnotationPresent("secrecy")) {
+						String attr = x.getVariables().get(0).getName().toString();
+						if(y.toString().cotnains(attr)) {
+							value++;
+							lastUsed = y.toString();
+						}
 					}
 				}
 			}
 		}
-		System.out.println("Value in CMVal: " + value);
 		return value;
 	}//end CMVal function
 	
@@ -54,16 +54,22 @@ public class COAMetric extends Metric {
 	
 	private double NCMVal(TypeDeclaration<?> n) {
 		double value = 0.0;
-		ArrayList<String> ncMethods = new ArrayList<String>();
-		for(FieldDeclaration x : n.getFields()) {
-			for(MethodDeclaration y : n.getMethods()) {
-				if(x.isAnnotationPresent("secrecy") && y.isPublic()) {
-					String attr = x.getVariables().get(0).getName().toString();
-					if(y.toString().contains(attr) && y.isPublic()) value++;
+		String lastUsed = "";
+		for(MethodDeclaration y : n.getMethods()) {
+			for(FieldDeclaration x : n.getFields()) {
+				if(!lastUsed.contentEquals(y.toString())) {
+					if(y.isPublic()) {
+						if(x.isAnnotationPresent("secrecy")) {
+							String attr = x.getVariables().get(0).getName().toString();
+							if(y.toString().contains(attr)) {
+								value++;
+								lastUsed = y.toString();
+							}
+						}
+					}
 				}
 			}
-		}
-		System.out.println("Value: " + value);
+		}//end for loops
 		return value;
 	}//end NCMVal function
 	

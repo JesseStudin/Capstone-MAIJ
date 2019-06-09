@@ -52,7 +52,7 @@ public class CIDAMetric extends Metric {
 		double NCIA = NCIAVal(n);
 		//end results
 		DecimalFormat df = new DecimalFormat("####0.00");
-		double resultVal = Double.valueOf(df.format(8.0 / 12.0));
+		double resultVal = Double.valueOf(df.format(NCIA / CA));
 		//Store the result within the MetricResult class ***Redefine this comment later
 		MetricResult result = new MetricResult(this.identifier, resultVal);
 		//log identifier + results

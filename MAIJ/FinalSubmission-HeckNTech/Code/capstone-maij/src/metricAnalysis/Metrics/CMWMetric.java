@@ -37,12 +37,17 @@ public class CMWMetric extends Metric {
 	
      private double CMVal(TypeDeclaration<?> n) {
 		double value = 0.0;
-		for(FieldDeclaration x : n.getFields()) {
-			for(MethodDeclaration y : n.getMethods()) {
-				//if(x.toString().contains("/*secrecy*/")) {
-				if(x.isPublic() == true) {
-					String attr = x.getVariables().get(0).getName().toString();
-					if(y.toString().contains(attr)) value++;
+		String lastUsed = "";
+		for(MethodDeclaration y : n.getMethods()) {
+			for(FieldDeclaration x : n.getFields()) {
+				if(!lastUsed.contentEquals(y.toString())) {
+					if(x.isAnnotationPresent("secrecy")) {
+						String attr = x.getVariables().get(0).getName().toString();
+						if(y.toString().contains(attr)) {
+							value++;
+							lastUsed = y.toString();
+						}
+					}
 				}
 			}
 		}
