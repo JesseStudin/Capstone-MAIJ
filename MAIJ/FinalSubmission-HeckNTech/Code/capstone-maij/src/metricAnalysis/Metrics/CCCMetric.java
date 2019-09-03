@@ -1,6 +1,5 @@
 package metricAnalysis.Metrics;
 
-import java.lang.annotation.Annotation;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -18,17 +17,16 @@ import metricAnalysis.MetricResult;
 import metricAnalysis.Metrics.Visitors.CAIMetricVisitor;
 import metricAnalysis.Metrics.Visitors.CCCMetricVisitor;
 import metricAnalysis.Metrics.Visitors.CCMetricVisitor;
-import metricAnalysis.Metrics.Visitors.CPCCMetricVisitor;
 
-public class CPCCMetric extends Metric{
+public class CCCMetric extends Metric{
 
 	private ArrayList<String> superclass = new ArrayList<String>();
 	private ArrayList<String> subclass = new ArrayList<String>();
-	private ArrayList<String> criticalClasses = new ArrayList<String>();
+	private ArrayList<String> sizeclass = new ArrayList<String>();
 	private HashMap<String, ArrayList<String>> classes = new HashMap<>();
 	double cai = 0.0;
 	
-	public CPCCMetric() {
+	public CCCMetric() {
 		super();
 		this.levels = Arrays.asList(MetricLevel.PACKAGE);	
 	}
@@ -42,40 +40,25 @@ public class CPCCMetric extends Metric{
 		SortedMap<String, ClassAST> classes = packast.getClasses();
 		
 		
-		//Calculate the Critical part class
-		for(int i = 0; i < superclass.size();i++) {
-			ClassAST ast = classes.get(superclass.get(i));
-			//get the current method size for the class
-			int methodSize = ast.getMethods().size();
-			System.out.println("The current class: " + superclass.get(i));
-			System.out.println("The current methodsize: " + methodSize);
-			//now find if class is critical.
-			if(methodSize <= 3) {
-				ca++;
-			}
-		}
-		System.out.println("The first result: " + ca);
-		return ca;
-		
 		//hash map to get all classes?
-//		for (int i = 0; i < superclass.size(); i++) {
-//			System.out.println("we are at this now: " + i);
-//			ClassAST ast = classes.get(superclass.get(i));
-//			for(MethodDeclaration n : ast.getNode().getMethods()) {
-//				for(FieldDeclaration x : ast.getNode().getFields()) {
-//					System.out.println(n.getBody().get().getStatement(0).getChildNodes().get(0).toString()); 
-//					System.out.println("the variable Type: " + x.getVariable(0).getTypeAsString()); 
-//					System.out.println("the range: " + n.getRange());
-//						if(x.isAnnotationPresent("secrecy") && n.toString().contains(x.getVariable(0).getNameAsString())) {
-//							System.out.println("entered");
-//						}
-//					}
-//				}
-//			}
-//		return ca;
-//			
-//		}
+		for (int i = 0; i < superclass.size(); i++) {
+			System.out.println("we are at this now: " + i);
+			ClassAST ast = classes.get(superclass.get(i));
+			for(MethodDeclaration n : ast.getNode().getMethods()) {
+				for(FieldDeclaration x : ast.getNode().getFields()) {
+					System.out.println(n.getBody().get().getStatement(0).getChildNodes().get(0).toString()); 
+					System.out.println("the variable Type: " + x.getVariable(0).getTypeAsString()); 
+					System.out.println("the range: " + n.getRange());
+						if(x.isAnnotationPresent("secrecy") && n.toString().contains(x.getVariable(0).getNameAsString())) {
+							System.out.println("entered");
+						}
+					}
+				}
+			}
+		return ca;
+			
 		}
+		
 	
 	/*
 	 *	the total number of classified attributes 
@@ -110,14 +93,16 @@ public class CPCCMetric extends Metric{
 		superclass.clear();
 		subclass.clear();
 		
+		System.out.println("classes size: " + classes.size());
 		
 		classes.put("superclass", superclass);
 		classes.put("subclass", subclass);
 		
-		CPCCMetricVisitor visitor = new CPCCMetricVisitor();
+		CCCMetricVisitor visitor = new CCCMetricVisitor();
+		CCMetricVisitor cvisitor = new CCMetricVisitor();
 		
 		Set<CompilationUnit> cus = packAst.getCus();
-		criticalClasses = new ArrayList<String>();
+		sizeclass = new ArrayList<String>();
 		for(CompilationUnit cu : cus) {
 			cu.accept(visitor, classes);
 		}
@@ -125,11 +110,10 @@ public class CPCCMetric extends Metric{
 		subclass = new ArrayList<String>(classes.get("subclass"));
 		//now superclass contains all the classes (can rename the variable later, bad practice :/ 
 		System.out.println("here " + superclass.size());
-		System.out.println("here" + superclass);
 		double ca = CAVal(packAst);
-		double tcc = superclass.size();
+		double ai = AIVal(packAst);
 		
-		cai = ca/tcc;
+		cai = ai / ca;
 		
 		
 		
