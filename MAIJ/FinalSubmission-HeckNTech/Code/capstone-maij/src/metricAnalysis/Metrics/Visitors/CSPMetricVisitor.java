@@ -38,16 +38,12 @@ public class CSPMetricVisitor extends VoidVisitorAdapter<HashMap<String, ArrayLi
 		if (n.getExtendedTypes().isNonEmpty()) {
 			String s = n.getExtendedTypes().toString();
 			s = s.substring(1, s.length()-1);
+			list = new ArrayList<String>(arg.get("superclass"));
 			
 			if (!(list.contains(s))) {
-				list = new ArrayList<String>(arg.get("superclass"));
 				list.add(s);
 				arg.put("superclass", list);
 			}
 		}
-
-		//System.out.println("class:"+n.getName());
-        //System.out.println("extends:"+n.getExtendedTypes());
-        //System.out.println("implements:"+n.getImplementedTypes());
 	}
 }

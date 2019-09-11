@@ -15,9 +15,7 @@ public class CSPMetric extends Metric {
 	private ArrayList<String> superclass = new ArrayList<String>();
 	private ArrayList<String> subclass = new ArrayList<String>();
 	private HashMap<String, ArrayList<String>> classes = new HashMap<>();
-	private double csp = 0.0;
-	private double cc = 0.0;
-	private double csc = 0.0;
+	
 	
 	public CSPMetric() {
 		super();
@@ -46,6 +44,18 @@ public class CSPMetric extends Metric {
 	public void run(PackageAST packAst) {
 		
 		if(this.alreadyDone(packAst)) return;
+		
+		double csp = 0.0;
+		double cc = 0.0;
+		double csc = 0.0;
+		
+		undefine.removeAll(undefine);
+		superclass.removeAll(superclass);
+		subclass.removeAll(subclass);
+		
+		System.out.println(undefine);
+		System.out.println(superclass);
+		System.out.println(subclass);
 		
 		classes.put("undefine", undefine);
 		classes.put("superclass", superclass);
