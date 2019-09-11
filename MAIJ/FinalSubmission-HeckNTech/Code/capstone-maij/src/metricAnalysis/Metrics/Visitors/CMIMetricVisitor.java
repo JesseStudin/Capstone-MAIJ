@@ -8,7 +8,7 @@ import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
 
 public class CMIMetricVisitor extends VoidVisitorAdapter<HashMap<String, ArrayList<String>>> {
 
-ArrayList<String> list;
+	ArrayList<String> list;
 	
 	public CMIMetricVisitor() {
 		
